@@ -3,6 +3,7 @@ FROM php:8.2-apache
 
 # Install system dependencies, including Python and pip
 RUN apt-get update && apt-get install -y \
+    build-essential \
     python3 \
     python3-pip \
     git \
