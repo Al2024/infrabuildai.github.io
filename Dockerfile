@@ -9,11 +9,8 @@ RUN apt-get update && apt-get install -y \
     git \
     libsqlite3-dev \
     curl \
+    rustc \
     && rm -rf /var/lib/apt/lists/*
-
-# Install Rust compiler for tiktoken dependency
-RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
-ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Copy the application source code to the web server's root directory
 COPY . /var/www/html/
