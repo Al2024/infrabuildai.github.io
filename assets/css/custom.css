@@ -1,0 +1,83 @@
+/*
+  Custom CSS for InfraBuild AI
+  Author: GitHub Copilot
+*/
+
+body {
+  background-color: #f4f4f9;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 20px;
+}
+
+h2 {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-sizing: border-box; /* So padding doesn't affect width */
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+input[type="submit"]:hover {
+  background-color: #2980b9;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  overflow: hidden;
+}
+
+/* Personality Test Styles */
+.question {
+  margin-bottom: 25px;
+}
+
+.question label {
+  font-weight: normal;
+}
+
+.radio-group {
+  margin-top: 10px;
+}
+
+.radio-group input[type="radio"] {
+  margin-right: 10px;
+}
