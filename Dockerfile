@@ -1,13 +1,19 @@
 # Use an official PHP image with Apache as the base image
 FROM php:8.2-apache
 
-# Install system dependencies, including Python and pip
+# Install system dependencies, including Python, pip, and build tools for dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3 \
     python3-pip \
     git \
+    libsqlite3-dev \
+    curl \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Rust compiler for tiktoken dependency
+RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Copy the application source code to the web server's root directory
 COPY . /var/www/html/
