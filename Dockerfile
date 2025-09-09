@@ -25,7 +25,7 @@ RUN a2enmod rewrite
 WORKDIR /var/www/html/
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r requirements.txt
 
 # Ensure the apache user can write to the user_data directory
 RUN chown -R www-data:www-data /var/www/html/
