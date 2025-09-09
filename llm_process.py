@@ -54,7 +54,7 @@ user_questions = [
 ]
 
 # Create the chain to answer user questions
-llm = ChatGoogleGenerativeAI(model="gemini-flash", temperature=0.0)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0.0)
 qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, return_source_documents=False)
 qa_chain.combine_documents_chain.llm_chain.prompt.messages[0].prompt.template = '''
 You are an expert Psychologist who specializes in personality traits and the Big Five model.

@@ -10,10 +10,17 @@ RUN apt-get update && apt-get install -y \
     libsqlite3-dev \
     curl \
     rustc \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
+
+# Install Composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Copy the application source code to the web server's root directory
 COPY . /var/www/html/
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader
 
 # Copy the virtual host configuration
 COPY 000-default.conf /etc/apache2/sites-available/000-default.conf

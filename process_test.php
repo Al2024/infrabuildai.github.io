@@ -1,4 +1,9 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'vendor/autoload.php';
+
 // Function to sanitize user input
 function test_input($data) {
     $data = trim($data);
@@ -57,15 +62,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (!empty($email)) {
-            $subject = "Your Personality Test Analysis Result";
-            // Ensure the output is formatted nicely for an email
-            $message = "<pre>" . htmlspecialchars($output) . "</pre>";
-            $headers = "From: no-reply@infrabuild.ai\r\n";
-            $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
+            $mail = new PHPMailer(true);
 
-            // Note: The mail() function requires a configured mail server (like sendmail or an SMTP server)
-            // to be set up in your php.ini file. This may not work in a default XAMPP setup without configuration.
-            mail($email, $subject, $message, $headers);
+            try {
+                //Server settings
+                $mail->isSMTP();
+                $mail->Host       = getenv('SMTP_HOST');
+                $mail->SMTPAuth   = true;
+                $mail->Username   = getenv('SMTP_USERNAME');
+                $mail->Password   = getenv('SMTP_PASSWORD');
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
+
+                //Recipients
+                $mail->setFrom(getenv('SMTP_USERNAME'), 'InfraBuild AI');
+                $mail->addAddress($email, $firstName);     // Add a recipient
+
+                // Content
+                $mail->isHTML(true);
+                $mail->Subject = 'Your Personality Test Analysis Result';
+                $mail->Body    = "<pre>" . htmlspecialchars($output) . "</pre>";
+                $mail->AltBody = $output;
+
+                $mail->send();
+            } catch (Exception $e) {
+                // Don't die, but maybe log the error
+                // For now, we'll just ignore it and redirect as usual
+            }
         }
 
         // Redirect to the thank you page
