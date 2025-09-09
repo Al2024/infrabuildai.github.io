@@ -86,8 +86,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 $mail->send();
             } catch (Exception $e) {
-                // Don't die, but maybe log the error
-                // For now, we'll just ignore it and redirect as usual
+                // Log the error to the server's error log
+                error_log("PHPMailer Error: {$mail->ErrorInfo}");
             }
         }
 
